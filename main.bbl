@@ -1,0 +1,197 @@
+\begin{thebibliography}{10}
+
+\bibitem{silva2024}
+G.~Silva.
+\newblock Challenges and strategies in the preservation of historical and
+  audiovisual archives.
+\newblock {\em Revista Sistem{\'a}tica}, 14:985--989, 2024.
+
+\bibitem{gellatly2015}
+C.~Gellatly.
+\newblock Reconstructing historical populations from genealogical data files.
+\newblock In {\em Population Reconstruction}, pages 111--128. Springer
+  International Publishing, 2015.
+
+\bibitem{kb_codexgigas}
+{National Library of Sweden}.
+\newblock The {Codex Gigas} -- devil's bible.
+\newblock \url{https://www.kb.se/eng/the-codex-gigas.html}, 2024.
+\newblock Accessed: 2026-06-17.
+
+\bibitem{eitz2012sketch}
+Mathias Eitz, James Hays, and Marc Alexa.
+\newblock How do humans sketch objects?
+\newblock {\em ACM Transactions on Graphics}, 31(4):44:1--44:10, 2012.
+
+\bibitem{xu2022freehand}
+Peng Xu, Timothy~M. Hospedales, Qian Yin, Yi-Zhe Song, Tao Xiang, and Liang
+  Wang.
+\newblock Deep learning for free-hand sketch: A survey.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  45(1):285--312, 2022.
+
+\bibitem{eitz2011benchmark}
+Mathias Eitz, Kristian Hildebrand, Tamy Boubekeur, and Marc Alexa.
+\newblock Sketch-based image retrieval: Benchmark and bag-of-features
+  descriptors.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  17(11):1624--1636, 2011.
+
+\bibitem{saavedra2010helo}
+Jose~M. Saavedra and Benjamin Bustos.
+\newblock An improved histogram of edge local orientations for sketch-based
+  image retrieval.
+\newblock In {\em Pattern Recognition (Proceedings of the 32nd DAGM
+  Symposium)}, volume 6376 of {\em Lecture Notes in Computer Science}, pages
+  432--441. Springer, 2010.
+
+\bibitem{saavedra2015lks}
+Jose~M. Saavedra, Juan~Manuel Barrios, and Sebastian Orand.
+\newblock Sketch based image retrieval using learned keyshapes (lks).
+\newblock In {\em Proceedings of the British Machine Vision Conference (BMVC)},
+  pages 164.1--164.11. BMVA Press, 2015.
+
+\bibitem{vilkomir2024}
+K.~Vilkomir and N.~Herndon.
+\newblock Challenges of automatic document processing with historical data.
+\newblock In {\em Proceedings of the 2024 ACM Southeast Conference}, pages
+  50--59. Association for Computing Machinery, 2024.
+
+\bibitem{girdhar2024}
+N.~Girdhar, M.~Coustaty, and A.~Doucet.
+\newblock Digitizing history: Transitioning historical paper documents to
+  digital content for information retrieval and mining---a comprehensive
+  survey.
+\newblock {\em IEEE Transactions on Computational Social Systems},
+  11(5):6151--6180, 2024.
+
+\bibitem{en2016scalable}
+Sovann En, Caroline Petitjean, Stephane Nicolas, and Laurent Heutte.
+\newblock A scalable pattern spotting system for historical documents.
+\newblock {\em Pattern Recognition}, 54:149--161, 2016.
+
+\bibitem{en2017dataset}
+Sovann En, Stephane Nicolas, Caroline Petitjean, Frederic Jurie, and Laurent
+  Heutte.
+\newblock New public dataset for spotting patterns in medieval document images.
+\newblock {\em Journal of Electronic Imaging}, 26(1):011010, 2017.
+
+\bibitem{ubeda2019convolutional}
+Ignacio {\'U}beda, Jose~M. Saavedra, Stephane Nicolas, Caroline Petitjean, and
+  Laurent Heutte.
+\newblock Pattern spotting in historical documents using convolutional models.
+\newblock In {\em Proceedings of the 5th International Workshop on Historical
+  Document Imaging and Processing (HIP)}, pages 60--65. Association for
+  Computing Machinery, 2019.
+
+\bibitem{ubeda2020fpn}
+Ignacio {\'U}beda, Jose~M. Saavedra, Stephane Nicolas, Caroline Petitjean, and
+  Laurent Heutte.
+\newblock Improving pattern spotting in historical documents using feature
+  pyramid networks.
+\newblock {\em Pattern Recognition Letters}, 131:398--404, 2020.
+
+\bibitem{curi2022binary}
+Zacarias Curi, Stephane Nicolas, Pierrick Tranouez, Alceu Britto, and Laurent
+  Heutte.
+\newblock Image retrieval and pattern spotting on historical documents with
+  binary descriptors.
+\newblock In {\em Proceedings of the 26th International Conference on Pattern
+  Recognition (ICPR)}, pages 3893--3899, 2022.
+
+\bibitem{saavedra2024idoc}
+Jose~M. Saavedra, Christopher Stears, Marcelo Pizarro, Crist{\'o}bal Loyola,
+  and Luis Aros.
+\newblock Leveraging self-supervision and open-set detection for improving
+  pattern spotting in historical documents.
+\newblock Manuscript in preparation / under review, 2025.
+
+\bibitem{dinov3}
+Oriane Sim{\'e}oni, Huy~V. Vo, Maximilian Seitzer, Federico Baldassarre, Maxime
+  Oquab, Cijo Jose, Vasil Khalidov, Marc Szafraniec, Seungeun Yi, Micha{\"e}l
+  Ramamonjisoa, Francisco Massa, Daniel Haziza, Luca Wehrstedt, Jianyuan Wang,
+  Timoth{\'e}e Darcet, Th{\'e}o Moutakanni, Leonel Sentana, Claire Roberts,
+  Andrea Vedaldi, Jamie Tolan, John Brandt, Camille Couprie, Julien Mairal,
+  Herv{\'e} J{\'e}gou, Patrick Labatut, and Piotr Bojanowski.
+\newblock Dinov3.
+\newblock {\em arXiv preprint arXiv:2508.10104}, 2025.
+
+\bibitem{saavedra2014shelo}
+Jose~M. Saavedra.
+\newblock Sketch based image retrieval using a soft computation of the
+  histogram of edge local orientations (s-helo).
+\newblock In {\em Proceedings of the IEEE International Conference on Image
+  Processing (ICIP)}, pages 2998--3002. IEEE, 2014.
+
+\bibitem{yu2017sketchanet}
+Qian Yu, Yongxin Yang, Feng Liu, Yi-Zhe Song, Tao Xiang, and Timothy~M.
+  Hospedales.
+\newblock Sketch-a-net: A deep neural network that beats humans.
+\newblock {\em International Journal of Computer Vision}, 122(3):411--425,
+  2017.
+
+\bibitem{sangkloy2016sketchy}
+Patsorn Sangkloy, Nathan Burnell, Cusuh Ham, and James Hays.
+\newblock The sketchy database: Learning to retrieve badly drawn bunnies.
+\newblock {\em ACM Transactions on Graphics}, 35(4):119, 2016.
+
+\bibitem{creswell2016sketchgan}
+Antonia Creswell and Anil~Anthony Bharath.
+\newblock Adversarial training for sketch retrieval.
+\newblock In {\em Computer Vision -- ECCV 2016 Workshops}, volume 9913 of {\em
+  Lecture Notes in Computer Science}. Springer, 2016.
+
+\bibitem{hsieh2019coae}
+Ting-I Hsieh, Yi-Chen Lo, Hwann-Tzong Chen, and Tyng-Luh Liu.
+\newblock One-shot object detection with co-attention and co-excitation.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  volume~32, 2019.
+
+\bibitem{yang2022bhrl}
+Hanqing Yang, Sijia Cai, Hualian Sheng, Bing Deng, Jianqiang Huang, Xian-Sheng
+  Hua, Yong Tang, and Yu~Zhang.
+\newblock Balanced and hierarchical relation learning for one-shot object
+  detection.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 7591--7600, 2022.
+
+\bibitem{osokin2020os2d}
+Anton Osokin, Denis Sumin, and Vasily Lomakin.
+\newblock {OS2D}: One-stage one-shot object detection by matching anchor
+  features.
+\newblock In {\em Proceedings of the European Conference on Computer Vision
+  (ECCV)}, 2020.
+
+\bibitem{li2020matchingfcos}
+Xiang Li, Lin Zhang, Yau~Pun Chen, Yu-Wing Tai, and Chi-Keung Tang.
+\newblock One-shot object detection without fine-tuning.
+\newblock arXiv preprint arXiv:2005.03819, 2020.
+
+\bibitem{lin2017fpn}
+Tsung-Yi Lin, Piotr Doll{\'a}r, Ross Girshick, Kaiming He, Bharath Hariharan,
+  and Serge Belongie.
+\newblock Feature pyramid networks for object detection.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 936--944, 2017.
+
+\bibitem{film2018}
+Ethan Perez, Florian Strub, Harm de~Vries, Vincent Dumoulin, and Aaron
+  Courville.
+\newblock {FiLM}: Visual reasoning with a general conditioning layer.
+\newblock In {\em Proceedings of the Thirty-Second AAAI Conference on
+  Artificial Intelligence}, 2018.
+
+\bibitem{fcos2019}
+Zhi Tian, Chunhua Shen, Hao Chen, and Tong He.
+\newblock {FCOS}: Fully convolutional one-stage object detection.
+\newblock In {\em Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pages 9626--9635, 2019.
+
+\bibitem{khosla2020supcon}
+Prannay Khosla, Piotr Teterwak, Chen Wang, Aaron Sarna, Yonglong Tian, Phillip
+  Isola, Aaron Maschinot, Ce~Liu, and Dilip Krishnan.
+\newblock Supervised contrastive learning.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  volume~33, pages 18661--18673, 2020.
+
+\end{thebibliography}

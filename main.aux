@@ -1,0 +1,103 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{silva2024}
+\citation{gellatly2015}
+\citation{kb_codexgigas}
+\citation{eitz2012sketch}
+\citation{eitz2012sketch}
+\citation{xu2022freehand}
+\citation{eitz2011benchmark}
+\citation{saavedra2010helo}
+\citation{saavedra2015lks}
+\citation{vilkomir2024}
+\citation{girdhar2024}
+\citation{en2016scalable}
+\citation{en2017dataset}
+\citation{ubeda2019convolutional}
+\citation{ubeda2020fpn}
+\citation{curi2022binary}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{saavedra2024idoc}
+\citation{dinov3}
+\citation{en2016scalable}
+\citation{en2017dataset}
+\citation{ubeda2019convolutional}
+\citation{ubeda2020fpn}
+\citation{curi2022binary}
+\citation{saavedra2024idoc}
+\citation{saavedra2010helo}
+\citation{saavedra2014shelo}
+\citation{saavedra2015lks}
+\citation{eitz2011benchmark}
+\citation{eitz2012sketch}
+\citation{yu2017sketchanet}
+\citation{sangkloy2016sketchy}
+\citation{xu2022freehand}
+\citation{creswell2016sketchgan}
+\citation{hsieh2019coae}
+\citation{yang2022bhrl}
+\citation{osokin2020os2d}
+\citation{li2020matchingfcos}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Pattern Spotting in Historical Documents}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Sketch-Based Image Retrieval}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Conditional and One-Shot Object Detection}{2}{subsection.2.3}\protected@file@percent }
+\citation{saavedra2024idoc}
+\citation{dinov3}
+\citation{lin2017fpn}
+\citation{film2018}
+\citation{fcos2019}
+\citation{khosla2020supcon}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Proposal}{3}{section.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces General architecture of the proposed sketch-conditioned pattern spotting model. A frozen ViT backbone (iDoc or DINOv3) encodes the document page into multi-scale features through an FPN, while the same backbone encodes the sketch query into a global embedding and a set of local patch tokens, refined by a lightweight transformer encoder. Both sketch representations condition the FCOS detection head through FiLM and bidirectional co-attention, producing class, box, and centerness predictions at every pyramid level.}}{3}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:architecture}{{1}{3}{General architecture of the proposed sketch-conditioned pattern spotting model. A frozen ViT backbone (iDoc or DINOv3) encodes the document page into multi-scale features through an FPN, while the same backbone encodes the sketch query into a global embedding and a set of local patch tokens, refined by a lightweight transformer encoder. Both sketch representations condition the FCOS detection head through FiLM and bidirectional co-attention, producing class, box, and centerness predictions at every pyramid level}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Architecture}{3}{subsection.3.1}\protected@file@percent }
+\citation{saavedra2024idoc}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Dataset}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Class distribution and median instance area in the annotated dataset (544 pages, 1{,}349 bounding boxes, 22 classes).}}{4}{table.caption.2}\protected@file@percent }
+\newlabel{tab:class_distribution}{{1}{4}{Class distribution and median instance area in the annotated dataset (544 pages, 1{,}349 bounding boxes, 22 classes)}{table.caption.2}{}}
+\citation{saavedra2024idoc}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textcolor {red}{REDACTAR}}}{5}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:variability}{{2}{5}{\textcolor {red}{REDACTAR}}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Results}{5}{section.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS.}}{5}{table.caption.4}\protected@file@percent }
+\newlabel{tab:global_results}{{2}{5}{Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS}{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Per-Class Analysis}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Per-class Average Precision (AP) at IoU\,=\,0.50. GT denotes the number of ground-truth boxes in the validation split. Classes marked with ($\bullet $) have no ground-truth instances in the split and are excluded. Best result per class in \textbf  {bold}.}}{6}{table.caption.5}\protected@file@percent }
+\newlabel{tab:per_class_results}{{3}{6}{Per-class Average Precision (AP) at IoU\,=\,0.50. GT denotes the number of ground-truth boxes in the validation split. Classes marked with ($\bullet $) have no ground-truth instances in the split and are excluded. Best result per class in \textbf {bold}}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{6}{section.5}\protected@file@percent }
+\bibstyle{unsrt}
+\bibdata{references}
+\bibcite{silva2024}{1}
+\bibcite{gellatly2015}{2}
+\bibcite{kb_codexgigas}{3}
+\bibcite{eitz2012sketch}{4}
+\bibcite{xu2022freehand}{5}
+\bibcite{eitz2011benchmark}{6}
+\bibcite{saavedra2010helo}{7}
+\bibcite{saavedra2015lks}{8}
+\bibcite{vilkomir2024}{9}
+\bibcite{girdhar2024}{10}
+\bibcite{en2016scalable}{11}
+\bibcite{en2017dataset}{12}
+\bibcite{ubeda2019convolutional}{13}
+\bibcite{ubeda2020fpn}{14}
+\bibcite{curi2022binary}{15}
+\bibcite{saavedra2024idoc}{16}
+\bibcite{dinov3}{17}
+\bibcite{saavedra2014shelo}{18}
+\bibcite{yu2017sketchanet}{19}
+\bibcite{sangkloy2016sketchy}{20}
+\bibcite{creswell2016sketchgan}{21}
+\bibcite{hsieh2019coae}{22}
+\bibcite{yang2022bhrl}{23}
+\bibcite{osokin2020os2d}{24}
+\bibcite{li2020matchingfcos}{25}
+\bibcite{lin2017fpn}{26}
+\bibcite{film2018}{27}
+\bibcite{fcos2019}{28}
+\bibcite{khosla2020supcon}{29}
+\gdef \@abspage@last{8}

@@ -1,0 +1,49 @@
+╔════════════════════════════════════════════════════════════════════════════════════════╗
+║                     iDoc-FCOS — Backbone Comparison: iDoc vs DINOv3                    ║
+╚════════════════════════════════════════════════════════════════════════════════════════╝
+
+  Split            : val
+  IoU threshold    : 0.50
+  Score threshold  : 0.25
+  Checkpoint iDoc  : train_fcos/run_01/best_model.pth
+  Checkpoint DINOv3: train_fcos/run_02/best_model.pth
+
+── INTERNAL METRICS (split val) ──────────────────────────────────────────────────────────
+  Metric                iDoc      DINOv3     Δ (v3-iDoc)      Winner
+  ──────────────────────────────────────────────────────────────────
+  mAP                 0.5939      0.7006         +0.1067      DINOv3
+  Precision           0.7434      0.8205         +0.0771      DINOv3
+  Recall              0.7568      0.8649         +0.1081      DINOv3
+  F1                  0.7500      0.8421         +0.0921      DINOv3
+
+  GT boxes               111         111
+  TP                      84          96
+  FP                      29          21
+  FN                      27          15
+
+── AP PER CLASS — internal (iDoc vs DINOv3) ──────────────────────────────────────────────
+  Class                     AP iDoc   AP DINOv3         Δ      Winner
+  ───────────────────────────────────────────────────────────────────
+  obj_39                      0.000       0.545    +0.545      DINOv3
+  obj_42                      0.182       0.628    +0.446      DINOv3
+  status                      0.364       0.636    +0.273      DINOv3
+  S                           0.768       1.000    +0.232      DINOv3
+  obj_61                      0.273       0.409    +0.136      DINOv3
+  double_sep                  0.875       1.000    +0.125      DINOv3
+  petit_A                     0.883       1.000    +0.117      DINOv3
+  obj_37                      0.100       0.000    -0.100        iDoc
+  obj_34                      1.000       0.909    -0.091        iDoc
+  BP                          0.333       0.250    -0.083        iDoc
+  marqeur                     0.859       0.859    -0.001        iDoc
+  T                           0.636       0.636    +0.000         Tie
+  grand_A                     1.000       1.000    +0.000         Tie
+  losange                     1.000       1.000    +0.000         Tie
+  obj_2                       0.636       0.636    +0.000         Tie
+
+── INTERNAL SUMMARY ──────────────────────────────────────────────────────────────────────
+  Classes won by iDoc     : 4
+  Classes won by DINOv3   : 7
+  Classes tied            : 4
+  Backbone with best mAP  : DINOv3  (Δ mAP = +0.1067)
+
+──────────────────────────────────────────────────────────────────────────────────────────

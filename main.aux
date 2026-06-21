@@ -4,13 +4,14 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{silva2024}
 \citation{gellatly2015}
-\citation{kb_codexgigas}
+\citation{hobvza2015codex}
 \citation{eitz2012sketch}
 \citation{eitz2012sketch}
 \citation{xu2022freehand}
 \citation{eitz2011benchmark}
 \citation{saavedra2010helo}
 \citation{saavedra2015lks}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{vilkomir2024}
 \citation{girdhar2024}
 \citation{en2016scalable}
@@ -18,7 +19,6 @@
 \citation{ubeda2019convolutional}
 \citation{ubeda2020fpn}
 \citation{curi2022binary}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{saavedra2024idoc}
 \citation{dinov3}
 \citation{en2016scalable}
@@ -60,14 +60,17 @@
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Class distribution and median instance area in the annotated dataset (544 pages, 1{,}349 bounding boxes, 22 classes).}}{4}{table.caption.2}\protected@file@percent }
 \newlabel{tab:class_distribution}{{1}{4}{Class distribution and median instance area in the annotated dataset (544 pages, 1{,}349 bounding boxes, 22 classes)}{table.caption.2}{}}
 \citation{saavedra2024idoc}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textcolor {red}{REDACTAR}}}{5}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:variability}{{2}{5}{\textcolor {red}{REDACTAR}}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Geometric variability of annotated instances in the dataset. (a)~Distribution of bounding box areas across all classes. (b)~Joint distribution of bounding box width and height.}}{5}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:variability}{{2}{5}{Geometric variability of annotated instances in the dataset. (a)~Distribution of bounding box areas across all classes. (b)~Joint distribution of bounding box width and height}{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Results}{5}{section.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS.}}{5}{table.caption.4}\protected@file@percent }
-\newlabel{tab:global_results}{{2}{5}{Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS}{table.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Per-Class Analysis}{5}{subsection.4.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Per-class Average Precision (AP) at IoU\,=\,0.50. GT denotes the number of ground-truth boxes in the validation split. Classes marked with ($\bullet $) have no ground-truth instances in the split and are excluded. Best result per class in \textbf  {bold}.}}{6}{table.caption.5}\protected@file@percent }
-\newlabel{tab:per_class_results}{{3}{6}{Per-class Average Precision (AP) at IoU\,=\,0.50. GT denotes the number of ground-truth boxes in the validation split. Classes marked with ($\bullet $) have no ground-truth instances in the split and are excluded. Best result per class in \textbf {bold}}{table.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Comparison of iDoc-FCOS and DINOv3-FCOS on the validation split. (a)~Global metrics (mAP, Precision, Recall, F1): DINOv3 outperforms iDoc across all four measures. (b)~Per-class Average Precision (AP) sorted by DINOv3 performance; dashed vertical lines indicate the mAP of each backbone. DINOv3 dominates in rare and visually complex classes, while iDoc remains competitive or superior on a small number of classes (\textit  {obj\_34}, \textit  {BP}, \textit  {obj\_37}).}}{5}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:results}{{3}{5}{Comparison of iDoc-FCOS and DINOv3-FCOS on the validation split. (a)~Global metrics (mAP, Precision, Recall, F1): DINOv3 outperforms iDoc across all four measures. (b)~Per-class Average Precision (AP) sorted by DINOv3 performance; dashed vertical lines indicate the mAP of each backbone. DINOv3 dominates in rare and visually complex classes, while iDoc remains competitive or superior on a small number of classes (\textit {obj\_34}, \textit {BP}, \textit {obj\_37})}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Global Metrics}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS.}}{5}{table.caption.5}\protected@file@percent }
+\newlabel{tab:global_results}{{2}{5}{Global detection metrics for both backbone variants on the validation split (55 pages, 111 ground-truth boxes, IoU\,=\,0.50, score\,thr.\,=\,0.25). $\Delta $ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Per-Class Analysis}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Per-class Average Precision (AP) at IoU\,=\,0.50 for the 15 classes with at least one ground-truth instance in the validation split. GT denotes the number of annotated boxes. The winner column indicates which backbone achieves higher AP; ties are marked with~\textemdash . Best result per class in \textbf  {bold}.}}{6}{table.caption.6}\protected@file@percent }
+\newlabel{tab:per_class_results}{{3}{6}{Per-class Average Precision (AP) at IoU\,=\,0.50 for the 15 classes with at least one ground-truth instance in the validation split. GT denotes the number of annotated boxes. The winner column indicates which backbone achieves higher AP; ties are marked with~\textemdash . Best result per class in \textbf {bold}}{table.caption.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{6}{section.5}\protected@file@percent }
 \bibstyle{unsrt}
 \bibdata{references}
@@ -100,4 +103,4 @@
 \bibcite{film2018}{27}
 \bibcite{fcos2019}{28}
 \bibcite{khosla2020supcon}{29}
-\gdef \@abspage@last{8}
+\gdef \@abspage@last{9}

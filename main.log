@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.3.17)  21 JUN 2026 08:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.3.17)  21 JUN 2026 09:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -429,50 +429,68 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--16
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 18.
+(Font)              size <17.28> substituted on input line 19.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 18.
+(Font)              size <17.28> substituted on input line 19.
 
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 51.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 50.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 51.
+(Font)              size <5> substituted on input line 50.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.5> not available
-(Font)              size <5> substituted on input line 51.
+(Font)              size <5> substituted on input line 50.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 51.
+(Font)              size <5> substituted on input line 50.
+
+
+LaTeX Warning: Citation `hobvza2015codex' on page 1 undefined on input line 65.
+
 
 [1{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 [2]
-<images/architecture.png, id=137, 2007.5pt x 602.25pt>
+<images/architecture.png, id=139, 2007.5pt x 602.25pt>
 File: images/architecture.png Graphic file (type png)
 <use images/architecture.png>
 Package pdftex.def Info: images/architecture.png  used on input line 93.
 (pdftex.def)             Requested size: 391.79178pt x 117.53476pt.
  [3 <./images/architecture.png>]
-<images/fig1_bbox_area_dist.png, id=156, 738.5994pt x 301.6068pt>
+<images/fig1_bbox_area_dist.png, id=158, 738.5994pt x 301.6068pt>
 File: images/fig1_bbox_area_dist.png Graphic file (type png)
 <use images/fig1_bbox_area_dist.png>
 Package pdftex.def Info: images/fig1_bbox_area_dist.png  used on input line 157
 .
-(pdftex.def)             Requested size: 195.89589pt x 79.98984pt.
-<images/fig2_bbox_dimensions_heatmap.png, id=158, 767.7483pt x 280.6485pt>
+(pdftex.def)             Requested size: 208.95517pt x 85.32373pt.
+<images/fig2_bbox_dimensions_heatmap.png, id=160, 767.7483pt x 280.6485pt>
 File: images/fig2_bbox_dimensions_heatmap.png Graphic file (type png)
 <use images/fig2_bbox_dimensions_heatmap.png>
 Package pdftex.def Info: images/fig2_bbox_dimensions_heatmap.png  used on input
  line 163.
-(pdftex.def)             Requested size: 195.89589pt x 71.60938pt.
- [4] [5 <./images/fig1_bbox_area_dist.png> <./images/fig2_bbox_dimensions_heatm
-ap.png>] [6] (./main.bbl [7]) [8]
-(./main.aux)
+(pdftex.def)             Requested size: 208.95517pt x 76.3842pt.
+ [4]
+<images/01_global_metrics_comparison.png, id=172, 426.393pt x 209.3421pt>
+File: images/01_global_metrics_comparison.png Graphic file (type png)
+<use images/01_global_metrics_comparison.png>
+Package pdftex.def Info: images/01_global_metrics_comparison.png  used on input
+ line 197.
+(pdftex.def)             Requested size: 208.95517pt x 102.5881pt.
+<images/02_ap_per_class_comparison.png, id=173, 860.013pt x 372.1905pt>
+File: images/02_ap_per_class_comparison.png Graphic file (type png)
+<use images/02_ap_per_class_comparison.png>
+Package pdftex.def Info: images/02_ap_per_class_comparison.png  used on input l
+ine 203.
+(pdftex.def)             Requested size: 208.95517pt x 90.42929pt.
+ [5 <./images/fig1_bbox_area_dist.png> <./images/fig2_bbox_dimensions_heatmap.p
+ng> <./images/01_global_metrics_comparison.png> <./images/02_ap_per_class_compa
+rison.png>] [6] (./main.bbl [7] [8])
+[9] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -482,14 +500,17 @@ L3 programming layer <2024-02-20>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.72pt have occurred.
 
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: BB1A2A15E4EC5239E04A804DA8E6344A;1666.
+(rerunfilecheck)             Checksum: 702D6D29335663DF48B21532E4E39C2B;1797.
  ) 
 Here is how much of TeX's memory you used:
- 11479 strings out of 474116
- 182641 string characters out of 5743682
- 1947187 words of memory out of 5000000
- 33652 multiletter control sequences out of 15000+600000
+ 11498 strings out of 474116
+ 183334 string characters out of 5743682
+ 1946187 words of memory out of 5000000
+ 33668 multiletter control sequences out of 15000+600000
  566538 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,13n,93p,1264b,566s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -514,10 +535,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (8 pages, 1368166 bytes).
+Output written on main.pdf (9 pages, 1538688 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 241 compressed objects within 3 object streams
- 55 named destinations out of 1000 (max. 500000)
- 104 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 316 PDF objects out of 1000 (max. 8388607)
+ 250 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 122 words of extra memory for PDF output out of 10000 (max. 10000000)
 

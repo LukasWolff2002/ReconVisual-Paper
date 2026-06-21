@@ -15,7 +15,8 @@
 
 \articletype{Paper} %	 e.g. Paper, Letter, Topical Review...
 
-\title{Sketch-Based Pattern Spotting in Historical Documents: A Comparative Study of CLIP Visual Encoders}
+\title{Sketch-Based Pattern Spotting in Historical Documents 
+       via Conditioned One-Stage Detection}
 
 \author{Lukas Wolff$^1$, Bernardo Caprile$^1$, Jose M. Saavedra$^{1,*}$}
 
@@ -35,32 +36,33 @@ seek.
 We address this limitation by proposing a sketch-conditioned, one-stage detector
 that localizes recurring graphical patterns in medieval document pages using a
 single hand-drawn sketch as the sole query.
-The model couples a frozen Vision Transformer backbone either the
-domain-adapted iDoc encoder or the general-purpose DINOv3 with a Feature
-Pyramid Network and an anchor-free FCOS detection head.
-Sketch conditioning is achieved through two complementary mechanisms: a global
-Feature-wise Linear Modulation (FiLM) layer that injects a coarse, class-level
-prior into every pyramid level, and a bidirectional co-attention module that
-enables fine-grained, spatially precise interaction between the sketch tokens
-and the document features.
-Training combines focal, generalized-IoU, centerness, and supervised contrastive
-losses, the latter being particularly effective for the long tail of classes
-with few annotated examples.
-Experiments on a dataset of 544 historical document pages annotated with
-1{,}349 bounding boxes spanning 22 classes show that DINOv3-FCOS achieves a
-mAP of $0.701$ at IoU$\,{=}\,0.50$, outperforming iDoc-FCOS ($0.582$) by
-$+12$ points.
-Contrary to expectations, the general-purpose backbone generalizes better than
-the domain-adapted one under the new sketch-conditioned detection scheme,
-particularly for rare and visually complex classes.
+The model couples a frozen Vision Transformer backbone with a Feature Pyramid
+Network and an anchor-free FCOS detection head conditioned on the sketch through
+two complementary mechanisms: a global Feature-wise Linear Modulation (FiLM)
+layer that injects a coarse class-level prior into every pyramid level, and a
+bidirectional co-attention module that enables fine-grained spatial interaction
+between the sketch tokens and the document features.
+We compare two backbone choices iDoc, a ViT encoder domain-adapted to
+medieval manuscripts via LoRA fine-tuning on the HORAE corpus, and DINOv3, a
+general-purpose encoder on a dataset of 544 historical document pages
+annotated with 1{,}349 bounding boxes spanning 22 classes of recurring
+graphical patterns.
+DINOv3-FCOS achieves a mAP of $0.701$ at IoU$\,{=}\,0.50$, outperforming
+iDoc-FCOS ($0.594$) by $+10.7$ points, with consistent gains in precision
+($0.821$ vs.\ $0.743$), recall ($0.865$ vs.\ $0.757$), and F1 ($0.842$
+vs.\ $0.750$).
+The advantage of DINOv3 is most pronounced for rare and visually complex
+classes, suggesting that representational breadth from large-scale general
+pre-training transfers more effectively to the trainable detection head than
+domain-specific adaptation, particularly in low-resource regimes.
 These results demonstrate the viability of sketch-based querying for historical
-document pattern spotting and highlight the importance of backbone choice when
-transitioning from similarity-search to end-to-end detection paradigms.
+document pattern spotting and highlight the critical role of backbone choice
+when transitioning from similarity-search to end-to-end detection paradigms.
 \end{abstract}
 
 \section{Introduction}
 
-Historical documents constitute an invaluable source of information about our past as a society, offering insight into culture, identity, and history~\cite{silva2024,gellatly2015}. However, the information conveyed by these documents is often difficult to analyze due to the degraded condition of the materials, the variability of handwriting styles, the use of archaic or extinct languages, and, no less importantly, the richness of the illustrations embedded throughout the documents, which not only provide an aesthetic finish consistent with the period in which they were produced but also convey vital information about the historical, social, and cultural context surrounding the text. A remarkable example of this phenomenon is the Codex Gigas, the largest surviving medieval manuscript, whose nearly full-page illustration of the Devil has fueled centuries of scholarly debate about the symbolic and historical meaning embedded in its pages~\cite{kb_codexgigas}.
+Historical documents constitute an invaluable source of information about our past as a society, offering insight into culture, identity, and history~\cite{silva2024,gellatly2015}. However, the information conveyed by these documents is often difficult to analyze due to the degraded condition of the materials, the variability of handwriting styles, the use of archaic or extinct languages, and, no less importantly, the richness of the illustrations embedded throughout the documents, which not only provide an aesthetic finish consistent with the period in which they were produced but also convey vital information about the historical, social, and cultural context surrounding the text. A remarkable example of this phenomenon is the Codex Gigas, the largest surviving medieval manuscript, whose nearly full-page illustration of the Devil has fueled centuries of scholarly debate about the symbolic and historical meaning embedded in its pages~\cite{hobvza2015codex}.
 
 Sketching is one of the oldest forms of communication developed by humankind, with evidence suggesting that humans have used drawings to depict their visual world since prehistoric times~\cite{eitz2012sketch}. Unlike written language, a sketch does not require a shared vocabulary, alphabet, or grammar to be understood, since it conveys meaning through universally recognizable visual cues rather than symbolic encoding, which makes it an inherently cross-cultural and language-independent medium of expression~\cite{eitz2012sketch,xu2022freehand}. This universality, together with the widespread availability of touch-screen devices that make sketching as effortless as drawing with a finger, has motivated a growing body of research on sketch-based image retrieval (SBIR), a paradigm in which a hand-drawn sketch, rather than an example image or a textual description, is used to query a database of images~\cite{eitz2011benchmark,saavedra2010helo,saavedra2015lks}. 
 
@@ -69,8 +71,6 @@ Currently, most historical documents are being digitized, and there are many eff
 Therefore, in this paper, we propose a sketch-conditioned, one-stage detector for pattern spotting in historical documents that builds upon \cite{saavedra2024idoc} by reusing its domain-adapted encoder, iDoc, together with the more recent state-of-the-art encoder DINOv3~\cite{dinov3}, as frozen backbones, while replacing the offline region-proposal and similarity-search decoder of our previous work with a trainable detection head conditioned directly on a hand-drawn sketch query through a combination of global feature-wise modulation and cross-attention with the document features. This design bridges the gap between pattern spotting and sketch-based image retrieval discussed above, allowing the system to localize a graphical pattern even when no example image of the target is available, and we further evaluate both encoders under this new conditioning scheme to determine which representation generalizes better to the graphical content of medieval manuscripts.
 
 \section{Related Work}
-
-\textcolor{red}{INTRODUCIR ESTA SECCION}
 
 \subsection{Pattern Spotting in Historical Documents}
 
@@ -152,18 +152,20 @@ This variability is intrinsic to the semantics of the illustrations themselves, 
 
 \begin{figure}[htb]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/fig1_bbox_area_dist.png}
         \caption*{(a)}
     \end{subfigure}
     \hspace{10pt}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/fig2_bbox_dimensions_heatmap.png}
         \caption*{(b)}
     \end{subfigure}
-    \caption{\textcolor{red}{REDACTAR}}
+    \caption{Geometric variability of annotated instances in the dataset.
+(a)~Distribution of bounding box areas across all classes.
+(b)~Joint distribution of bounding box width and height.}
     \label{fig:variability}
 \end{figure}
  
@@ -173,24 +175,46 @@ Beyond this geometric variability, the sketch-conditioned setting introduces thr
 %  SECTION: Experimental Results
 %  Paste this block after \subsection{Dataset} in main.tex
 % ─────────────────────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────────────────────
+%  SECTION: Experimental Results  (versión final)
+%  Pegar después de \subsection{Dataset} en main.tex
+%  Copiar las imágenes a:
+%    images/01_global_metrics_comparison.png
+%    images/02_ap_per_class_comparison.png
+% ─────────────────────────────────────────────────────────────────────────────
 
 \section{Experimental Results}
 
-Table~\ref{tab:global_results} summarizes the overall detection performance of both
-backbone variants on the validation split (55 pages, 111 ground-truth boxes) at
-IoU$\,{=}\,0.50$ and a score threshold of $0.25$.
-DINOv3-FCOS outperforms iDoc-FCOS across every reported metric, achieving a
-mean Average Precision of $0.701$ against $0.582$ for iDoc ($+12$ points), while
-simultaneously reducing the false-positive rate from $26.5\%$ to $17.9\%$ and
-raising recall from $74.8\%$ to $86.5\%$.
-This result is noteworthy because iDoc was explicitly adapted to the historical
-document domain via LoRA fine-tuning on the HORAE corpus~\cite{saavedra2024idoc},
-whereas DINOv3 is a general-purpose encoder.
-The gap suggests that, when the backbone is used as a frozen feature extractor
-for a trainable detection head rather than as a similarity-search encoder, the
-richer, more diverse representations learned by DINOv3 transfer more effectively
-to the sketch-conditioned FCOS head than the more narrowly specialized
-representations of iDoc.
+We evaluate both backbone variants on the validation split (55 pages,
+111 ground-truth boxes) at IoU$\,{=}\,0.50$ and a score threshold of $0.25$.
+Fig.~\ref{fig:results} summarizes the comparison visually, and
+Table~\ref{tab:global_results} reports the full set of global metrics.
+
+\begin{figure}[htb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/01_global_metrics_comparison.png}
+        \caption*{(a)}
+    \end{subfigure}
+    \hspace{10pt}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/02_ap_per_class_comparison.png}
+        \caption*{(b)}
+    \end{subfigure}
+    \caption{Comparison of iDoc-FCOS and DINOv3-FCOS on the validation split.
+    (a)~Global metrics (mAP, Precision, Recall, F1): DINOv3 outperforms iDoc
+    across all four measures.
+    (b)~Per-class Average Precision (AP) sorted by DINOv3 performance;
+    dashed vertical lines indicate the mAP of each backbone.
+    DINOv3 dominates in rare and visually complex classes, while iDoc remains
+    competitive or superior on a small number of classes (\textit{obj\_34},
+    \textit{BP}, \textit{obj\_37}).}
+    \label{fig:results}
+\end{figure}
+
+\subsection{Global Metrics}
 
 \begin{table}[htb]
 \centering
@@ -200,138 +224,157 @@ $\Delta$ denotes the absolute gain of DINOv3-FCOS over iDoc-FCOS.}
 \label{tab:global_results}
 \begin{tabular}{lrrr}
 \toprule
-Metric & iDoc-FCOS & DINOv3-FCOS & $\Delta$ \\
+Metric          & iDoc-FCOS & DINOv3-FCOS & $\Delta$ \\
 \midrule
-mAP @ IoU=0.50 & 0.582 & \textbf{0.701} & $+0.119$ \\
-Precision       & 0.735 & \textbf{0.821} & $+0.086$ \\
-Recall          & 0.748 & \textbf{0.865} & $+0.117$ \\
-F1              & 0.741 & \textbf{0.842} & $+0.101$ \\
+mAP @ IoU=0.50  & 0.594      & \textbf{0.701} & $+0.107$ \\
+Precision       & 0.743      & \textbf{0.821} & $+0.077$ \\
+Recall          & 0.757      & \textbf{0.865} & $+0.108$ \\
+F1              & 0.750      & \textbf{0.842} & $+0.092$ \\
 \midrule
-Total TP        &  83   & \textbf{96}    & $+13$    \\
-Total FP        &  30   & \textbf{21}    & $-9$     \\
-Total FN        &  28   & \textbf{15}    & $-13$    \\
-FP rate         & 26.5\% & \textbf{17.9\%} & $-8.6$\,pp \\
+Total TP        &  84        & \textbf{96}    & $+12$    \\
+Total FP        &  29        & \textbf{21}    & $-8$     \\
+Total FN        &  27        & \textbf{15}    & $-12$    \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+DINOv3-FCOS outperforms iDoc-FCOS across every reported metric.
+The mAP gap of $+10.7$ points is the most consequential difference: DINOv3
+correctly localizes 12 additional instances (96 vs.\ 84 true positives) while
+simultaneously generating 8 fewer false positives (21 vs.\ 29), yielding an
+$8$-point improvement in precision and a $10.8$-point improvement in recall.
+This result is noteworthy because iDoc was explicitly adapted to the historical
+document domain via LoRA fine-tuning on the HORAE corpus~\cite{saavedra2024idoc},
+whereas DINOv3 is a general-purpose encoder with no exposure to medieval
+manuscripts during pre-training.
+The outcome suggests that, when the backbone is used as a \emph{frozen} feature
+extractor for a trainable detection head, the representational breadth acquired
+during large-scale general pre-training transfers more effectively to the
+sketch-conditioned FCOS head than the more narrowly specialized representations
+of iDoc.
 
 \subsection{Per-Class Analysis}
 
-Table~\ref{tab:per_class_results} reports Average Precision (AP) per class for
-the 15 classes that have at least one ground-truth instance in the validation
-split; the remaining 7 classes are absent from the split and cannot be evaluated.
+Table~\ref{tab:per_class_results} reports the per-class AP for all 15 classes
+that have at least one ground-truth instance in the validation split; the
+remaining 7 classes are absent from this partition due to the dataset's severe
+class imbalance (Gini index $0.537$) and cannot be evaluated.
+Fig.~\ref{fig:results}(b) provides a visual overview sorted by DINOv3
+performance, with dashed vertical lines marking the mAP of each backbone.
 
 \begin{table}[htb]
 \centering
-\caption{Per-class Average Precision (AP) at IoU\,=\,0.50.
-GT denotes the number of ground-truth boxes in the validation split.
-Classes marked with ($\bullet$) have no ground-truth instances in the split
-and are excluded.
+\caption{Per-class Average Precision (AP) at IoU\,=\,0.50 for the 15 classes
+with at least one ground-truth instance in the validation split.
+GT denotes the number of annotated boxes. The winner column indicates which
+backbone achieves higher AP; ties are marked with~\textemdash.
 Best result per class in \textbf{bold}.}
 \label{tab:per_class_results}
-\begin{tabular}{lrrr}
+\begin{tabular}{lrrrr}
 \toprule
-Class & GT & iDoc-FCOS & DINOv3-FCOS \\
+Class        & GT & iDoc-FCOS & DINOv3-FCOS & Winner \\
 \midrule
-marqeur      & 60 & 0.858          & \textbf{0.860} \\
-S            &  6 & 0.732          & \textbf{1.000} \\
-double\_sep  &  8 & 0.899          & \textbf{1.000} \\
-losange      &  4 & \textbf{1.000} & \textbf{1.000} \\
-grand\_A     &  6 & \textbf{1.000} & \textbf{1.000} \\
-petit\_A     &  4 & 0.883          & \textbf{1.000} \\
-obj\_34      &  3 & \textbf{1.000} & 0.909          \\
-T            &  3 & \textbf{0.727} & 0.636          \\
-BP           &  1 & \textbf{0.333} & 0.250          \\
-status       &  4 & 0.245          & \textbf{0.636} \\
-obj\_2       &  3 & 0.500          & \textbf{0.636} \\
-obj\_42      &  2 & 0.182          & \textbf{0.628} \\
-obj\_39      &  2 & 0.000          & \textbf{0.545} \\
-obj\_61      &  4 & 0.273          & \textbf{0.409} \\
-obj\_37      &  1 & 0.100          & 0.000          \\
+grand\_A     &  6 & \textbf{1.000} & \textbf{1.000} & \textemdash \\
+losange      &  4 & \textbf{1.000} & \textbf{1.000} & \textemdash \\
+T            &  3 & \textbf{0.636} & \textbf{0.636} & \textemdash \\
+obj\_2       &  3 & \textbf{0.636} & \textbf{0.636} & \textemdash \\
 \midrule
-\multicolumn{2}{l}{Classes with AP$\,{\geq}\,0.50$} & 8 / 22 & \textbf{12 / 22} \\
+double\_sep  &  8 & 0.875          & \textbf{1.000} & DINOv3 ($+0.125$) \\
+S            &  6 & 0.768          & \textbf{1.000} & DINOv3 ($+0.232$) \\
+petit\_A     &  4 & 0.883          & \textbf{1.000} & DINOv3 ($+0.117$) \\
+status       &  4 & 0.364          & \textbf{0.636} & DINOv3 ($+0.273$) \\
+marqeur      & 60 & 0.859          & \textbf{0.859} & DINOv3 ($-0.001$) \\
+obj\_61      &  4 & 0.273          & \textbf{0.409} & DINOv3 ($+0.136$) \\
+obj\_42      &  2 & 0.182          & \textbf{0.628} & DINOv3 ($+0.446$) \\
+obj\_39      &  2 & 0.000          & \textbf{0.545} & DINOv3 ($+0.545$) \\
+\midrule
+obj\_34      &  3 & \textbf{1.000} & 0.909          & iDoc ($-0.091$)   \\
+BP           &  1 & \textbf{0.333} & 0.250          & iDoc ($-0.083$)   \\
+obj\_37      &  1 & \textbf{0.100} & 0.000          & iDoc ($-0.100$)   \\
+\midrule
+\multicolumn{2}{l}{Classes with AP$\,{\geq}\,0.50$} & 8 / 22 & \textbf{12 / 22} & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The class-level results reveal a more nuanced picture than the aggregate metrics
-alone suggest.
-For high-frequency or geometrically simple classes \textit{losange},
-\textit{grand\_A}, \textit{obj\_34}, and \textit{T} iDoc-FCOS is competitive
-with or superior to DINOv3-FCOS, indicating that the domain-adapted
-representation is advantageous when ample training signal is available and
-the target shape is relatively unambiguous.
-Conversely, DINOv3-FCOS achieves substantially higher AP on rare and visually
-complex classes, including \textit{status} ($+0.391$), \textit{obj\_42}
-($+0.446$), \textit{obj\_39} ($+0.545$), and \textit{S} ($+0.268$), suggesting
-that the broader feature vocabulary of the general-purpose encoder generalizes
-better to the long tail of the class distribution.
-This observation is consistent with the hypothesis that domain adaptation narrows
-the representation toward patterns that are statistically dominant in the
-training corpus, at the cost of coverage over rare or atypical categories.
+The per-class breakdown reveals a consistent pattern.
+DINOv3-FCOS wins in 7 of 15 evaluated classes, ties in 4, and loses in only 3.
+Its advantage is largest on rare and visually complex classes:
+\textit{obj\_39} ($+0.545$), \textit{obj\_42} ($+0.446$), \textit{status}
+($+0.273$), and \textit{S} ($+0.232$), none of which exceed 34 annotated
+instances in the full dataset (see Table~\ref{tab:class_distribution}).
+This suggests that the broader feature vocabulary of the general-purpose
+backbone generalizes better precisely where training supervision is scarce,
+complementing the effect of the supervised contrastive loss that was
+specifically designed to address this long-tail regime.
 
-Regarding false positives, iDoc-FCOS generates $43\%$ more false
-detections than DINOv3-FCOS (30 vs.\ 21).
-The most pronounced cases are \textit{petit\_A}, where iDoc produces 6
-false positives against 4 true positives (precision 0.40), and \textit{BP},
-where it produces 4 false positives with a single true positive.
-DINOv3-FCOS, despite producing false positives of its own on these classes,
-ranks its predictions more reliably, as reflected in the higher AP scores.
+Conversely, iDoc-FCOS retains a small edge on three classes
+(\textit{obj\_34}, \textit{BP}, \textit{obj\_37}), all of which have very
+few instances in the validation split (1--3 ground-truth boxes), making
+these results statistically fragile.
+On the dominant class \textit{marqeur} (60 ground-truth boxes in the
+validation split), both backbones are essentially equivalent ($\Delta = -0.001$),
+confirming that domain adaptation is beneficial when sufficient training
+signal is available, but does not provide a decisive advantage at this scale.
 
-Finally, seven classes \textit{croix}, \textit{encadrement}, \textit{obj\_1},
-\textit{obj\_31}, \textit{obj\_40}, \textit{pdp}, and \textit{triple\_sep} are
-entirely absent from the validation split, preventing their evaluation.
-This is a direct consequence of the severe class imbalance in the dataset
-(Gini index 0.537; see Table~\ref{tab:class_distribution}) and motivates the use
-of stratified splitting in future work to ensure every class is represented in
-all partitions.
-
+Finally, seven classes are absent from the validation split
+(\textit{croix}, \textit{encadrement}, \textit{obj\_1}, \textit{obj\_31},
+\textit{obj\_40}, \textit{pdp}, \textit{triple\_sep}), a direct consequence
+of the imbalanced class distribution.
+This motivates the adoption of stratified cross-validation in future work
+to ensure a reliable per-class estimate across all 22 categories.
 
 \section{Conclusions}
  
 We have presented a sketch-conditioned, one-stage detector for pattern spotting
-in historical documents that bridges, for the first time at scale, the
-paradigms of sketch-based image retrieval and graphical pattern localization.
-By conditioning a standard FCOS detection head on a hand-drawn sketch through a
-combination of FiLM modulation and bidirectional co-attention, the proposed
+in historical documents that bridges the paradigms of sketch-based image
+retrieval and graphical pattern localization.
+By conditioning a standard FCOS detection head on a hand-drawn sketch through
+a combination of FiLM modulation and bidirectional co-attention, the proposed
 system can localize recurring graphical patterns in medieval manuscript pages
 without requiring any example image of the target, relying solely on a query
-drawn by the user.
+drawn by the user at query time.
  
-The comparative evaluation of two frozen ViT backbones yields a clear and
-somewhat surprising finding: DINOv3-FCOS achieves a mAP of $0.701$, outperforming
-iDoc-FCOS ($0.582$) by $+12$ points despite the fact that iDoc was explicitly
-adapted to the historical document domain.
-The advantage of DINOv3 is most pronounced for rare and visually complex classes
-(\textit{status}, \textit{obj\_42}, \textit{obj\_39}), where its broader
-feature vocabulary appears to generalize better to the long tail of the class
-distribution.
-iDoc-FCOS, by contrast, remains competitive on high-frequency and geometrically
-simple classes (\textit{losange}, \textit{grand\_A}, \textit{obj\_34}),
-suggesting that domain adaptation is beneficial when sufficient training signal
-is available but does not compensate for the reduced representational diversity
-in low-resource regimes.
-This result implies that, when the backbone is used as a frozen feature
-extractor for a trainable detection head rather than as a direct
-similarity-search encoder, diversity of pre-training data matters more than
+The comparative evaluation of two frozen ViT backbones on a dataset of 544
+annotated pages yields a clear and instructive finding: DINOv3-FCOS achieves a
+mAP of $0.701$, outperforming iDoc-FCOS ($0.594$) by $+10.7$ points despite
+the fact that iDoc was explicitly adapted to the historical document domain.
+DINOv3 wins in 7 of 15 evaluated classes and ties in 4, while iDoc prevails
+in only 3, all of them with 1--3 ground-truth boxes in the validation split,
+making those victories statistically fragile.
+The advantage of DINOv3 is sharpest on rare and visually complex categories
+such as \textit{obj\_39} ($+0.545$), \textit{obj\_42} ($+0.446$),
+\textit{status} ($+0.273$), and \textit{S} ($+0.232$); on the dominant class
+\textit{marqeur} (60 instances in the validation split), both backbones are
+virtually identical ($\Delta = -0.001$).
+This pattern suggests that domain adaptation is beneficial when ample
+supervision is available, but that the broader feature vocabulary acquired
+during large-scale general pre-training provides a decisive advantage in the
+low-resource regime that characterizes most classes in historical document
+collections.
+The implication for practitioners is that, when a backbone is used as a frozen
+feature extractor for a trainable detection head rather than as a direct
+similarity-search encoder, pre-training data diversity matters more than
 domain specificity.
  
-Several directions for future work remain open.
-First, the severe class imbalance in the dataset (Gini index $0.537$) prevents
-the evaluation of seven classes in the current validation split; stratified
-cross-validation would provide a more comprehensive and reliable estimate of
-per-class performance.
-Second, the contrastive loss and the copy-paste augmentation, which were
-specifically motivated by the long-tail distribution, warrant a dedicated
-ablation study to quantify their individual contributions.
+Several directions remain open for future work.
+First, the severe class imbalance in the dataset (Gini index $0.537$) leaves
+seven classes entirely absent from the current validation split; stratified
+cross-validation would provide a more complete and reliable per-class
+performance estimate across all 22 categories.
+Second, the contributions of the supervised contrastive loss and the copy-paste
+augmentation both motivated by the long-tail distribution warrant a
+dedicated ablation study to quantify their individual impact, especially for
+the classes where DINOv3 shows the largest gains.
 Third, the detection head currently conditions on a single sketch per query;
-extending the prototype averaging strategy to multiple sketches per class, and
-studying how the number and diversity of sketches affect localization accuracy,
-would make the system more robust to idiosyncratic drawing styles.
-Finally, end-to-end fine-tuning of the backbone with a low learning rate,
-or lightweight adaptation via LoRA applied directly within the detection
-pipeline, may further close the gap between the two encoder variants and
-improve performance on the most challenging classes.
+extending the prototype averaging strategy to multiple sketches per class and
+studying how sketch diversity affects localization accuracy would make the
+system more robust to idiosyncratic drawing styles.
+Finally, lightweight end-to-end adaptation of the backbone within the detection
+pipeline for instance, through LoRA applied to the frozen ViT during joint
+training may further close the performance gap between the two encoder
+variants on rare classes while preserving the generalization advantages of
+large-scale pre-training.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

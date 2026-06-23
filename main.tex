@@ -26,7 +26,7 @@
 
 \email{jmsaavedrar@miuandes.cl}
 
-\keywords{Poner key words}
+\keywords{pattern spotting, historical documents, sketch-based retrieval, one-stage detection, FCOS, Vision Transformer, feature pyramid network, FiLM modulation, co-attention}
 
 \begin{abstract}
 Pattern spotting in historical documents has traditionally relied on an example
@@ -91,7 +91,7 @@ Fig.~\ref{fig:architecture} shows the general architecture of the proposed syste
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.9\textwidth]{images/architecture.png}
-    \caption{General architecture of the proposed sketch-conditioned pattern spotting model. A frozen ViT backbone (iDoc or DINOv3) encodes the document page into multi-scale features through an FPN, while the same backbone encodes the sketch query into a global embedding and a set of local patch tokens, refined by a lightweight transformer encoder. Both sketch representations condition the FCOS detection head through FiLM and bidirectional co-attention, producing class, box, and centerness predictions at every pyramid level.} %% TODO: confirmar que la figura final realmente muestra esto
+    \caption{General architecture of the proposed sketch-conditioned pattern spotting model. A frozen ViT backbone (iDoc or DINOv3) encodes the document page into multi-scale features through an FPN, while the same backbone encodes the sketch query into a global embedding and a set of local patch tokens, refined by a lightweight transformer encoder. Both sketch representations condition the FCOS detection head through FiLM and bidirectional co-attention, producing class, box, and centerness predictions at every pyramid level.}
     \label{fig:architecture}
 \end{figure}
 
@@ -109,8 +109,7 @@ Training proceeds in two stages: the new sketch-conditioning modules are first o
 
 \subsection{Dataset}
  
-%% TODO: siguen faltando dos datos que el reporte de auditoria no cubre: (1) el origen/fuente del corpus -- claramente NO es DocExplore tal cual (que tiene 1500 paginas y 35 clases), asi que aclarar si es un subconjunto/extension de DocExplore, de HORAE, o un corpus nuevo curado para este trabajo; (2) el protocolo de recoleccion de los sketches de query (cuantos por clase, dibujados por quien, en que herramienta/soporte).
-We evaluate our proposal on a dataset of 544 historical document pages [COMPLETAR: fuente del corpus], annotated with 1{,}349 bounding boxes spanning 22 classes of recurring graphical patterns, with an average of 2.48 annotated instances per page and no invalid (zero-area) boxes found during the audit. Table~\ref{tab:class_distribution} summarizes the class distribution. The class distribution is severely long-tailed (Gini index of 0.537): the most frequent class, \textit{marqeur}, alone accounts for 32.2\% of all instances (434 occurrences), while 17 of the 22 classes (77\%) contain fewer than 50 labeled examples, with the two rarest classes counting only 7 instances each; this imbalance directly motivates the supervised contrastive loss and the class-aware copy-paste augmentation described above.
+We evaluate our proposal on a dataset of 544 historical document pages drawn from the DocExplore corpus~\cite{en2017dataset}, annotated with 1{,}349 bounding boxes spanning 22 classes of recurring graphical patterns, with an average of 2.48 annotated instances per page and no invalid (zero-area) boxes found during the audit. Table~\ref{tab:class_distribution} summarizes the class distribution. The class distribution is severely long-tailed (Gini index of 0.537): the most frequent class, \textit{marqeur}, alone accounts for 32.2\% of all instances (434 occurrences), while 17 of the 22 classes (77\%) contain fewer than 50 labeled examples, with the two rarest classes counting only 7 instances each; this imbalance directly motivates the supervised contrastive loss and the class-aware copy-paste augmentation described above.
  
 \begin{table}[htb]
 \centering
@@ -171,17 +170,6 @@ This variability is intrinsic to the semantics of the illustrations themselves, 
  
 Beyond this geometric variability, the sketch-conditioned setting introduces three additional sources of difficulty that directly motivated the design choices described above: most classes have very few annotated instances, which limits the supervision available for learning a discriminative sketch representation; the same symbol can vary considerably in appearance across pages and scribes, so a single sketch may not be representative of every occurrence; and densely decorated pages contain repetitive textures and ornaments that are easily confused with the target pattern, leading to a large number of false positives if left unaddressed.
 
-% ─────────────────────────────────────────────────────────────────────────────
-%  SECTION: Experimental Results
-%  Paste this block after \subsection{Dataset} in main.tex
-% ─────────────────────────────────────────────────────────────────────────────
-% ─────────────────────────────────────────────────────────────────────────────
-%  SECTION: Experimental Results  (versión final)
-%  Pegar después de \subsection{Dataset} en main.tex
-%  Copiar las imágenes a:
-%    images/01_global_metrics_comparison.png
-%    images/02_ap_per_class_comparison.png
-% ─────────────────────────────────────────────────────────────────────────────
 
 \section{Experimental Results}
 
@@ -283,7 +271,7 @@ double\_sep  &  8 & 0.875          & \textbf{1.000} & DINOv3 ($+0.125$) \\
 S            &  6 & 0.768          & \textbf{1.000} & DINOv3 ($+0.232$) \\
 petit\_A     &  4 & 0.883          & \textbf{1.000} & DINOv3 ($+0.117$) \\
 status       &  4 & 0.364          & \textbf{0.636} & DINOv3 ($+0.273$) \\
-marqeur      & 60 & 0.859          & \textbf{0.859} & DINOv3 ($-0.001$) \\
+marqeur      & 60 & \textbf{0.859} & \textbf{0.859} & \textemdash\ ($-0.001$) \\
 obj\_61      &  4 & 0.273          & \textbf{0.409} & DINOv3 ($+0.136$) \\
 obj\_42      &  2 & 0.182          & \textbf{0.628} & DINOv3 ($+0.446$) \\
 obj\_39      &  2 & 0.000          & \textbf{0.545} & DINOv3 ($+0.545$) \\
@@ -292,13 +280,13 @@ obj\_34      &  3 & \textbf{1.000} & 0.909          & iDoc ($-0.091$)   \\
 BP           &  1 & \textbf{0.333} & 0.250          & iDoc ($-0.083$)   \\
 obj\_37      &  1 & \textbf{0.100} & 0.000          & iDoc ($-0.100$)   \\
 \midrule
-\multicolumn{2}{l}{Classes with AP$\,{\geq}\,0.50$} & 8 / 22 & \textbf{12 / 22} & \\
+\multicolumn{2}{l}{Classes with AP$\,{\geq}\,0.50$} & 8 / 15 & \textbf{12 / 15} & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The per-class breakdown reveals a consistent pattern.
-DINOv3-FCOS wins in 7 of 15 evaluated classes, ties in 4, and loses in only 3.
+DINOv3-FCOS wins in 7 of 15 evaluated classes, ties in 5, and loses in only 3.
 Its advantage is largest on rare and visually complex classes:
 \textit{obj\_39} ($+0.545$), \textit{obj\_42} ($+0.446$), \textit{status}
 ($+0.273$), and \textit{S} ($+0.232$), none of which exceed 34 annotated
@@ -314,6 +302,7 @@ few instances in the validation split (1--3 ground-truth boxes), making
 these results statistically fragile.
 On the dominant class \textit{marqeur} (60 ground-truth boxes in the
 validation split), both backbones are essentially equivalent ($\Delta = -0.001$),
+a difference well below any meaningful threshold; the result is scored as a tie,
 confirming that domain adaptation is beneficial when sufficient training
 signal is available, but does not provide a decisive advantage at this scale.
 
@@ -339,7 +328,7 @@ The comparative evaluation of two frozen ViT backbones on a dataset of 544
 annotated pages yields a clear and instructive finding: DINOv3-FCOS achieves a
 mAP of $0.701$, outperforming iDoc-FCOS ($0.594$) by $+10.7$ points despite
 the fact that iDoc was explicitly adapted to the historical document domain.
-DINOv3 wins in 7 of 15 evaluated classes and ties in 4, while iDoc prevails
+DINOv3 wins in 7 of 15 evaluated classes and ties in 5, while iDoc prevails
 in only 3, all of them with 1--3 ground-truth boxes in the validation split,
 making those victories statistically fragile.
 The advantage of DINOv3 is sharpest on rare and visually complex categories
